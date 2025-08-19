@@ -49,7 +49,7 @@ class ServiceTicket(Base):
 
     id: Mapped[int] = mapped_column(primary_key=True)
     customer_id: Mapped[int] = mapped_column(Integer, ForeignKey('customers.id'), nullable=False)
-    service_desc: Mapped[str] = mapped_column(String(200), nullable=True)
+    service_desc: Mapped[str] = mapped_column(String(200), nullable=False)
     price: Mapped[float] = mapped_column(Float, nullable=False)
     VIN: Mapped[str] = mapped_column(String(50), nullable=False)
     service_date: Mapped[date] = mapped_column(Date, nullable=False, default=date.today)

@@ -2,6 +2,7 @@ from flask import Flask
 from .models import db
 from .extensions import ma
 from .blueprints.mechanic import mechanic_bp
+from .blueprints.service_ticket import service_ticket_bp
 
 def create_app(config_name):
     app = Flask(__name__) #creating base app
@@ -13,5 +14,6 @@ def create_app(config_name):
 
     #register blueprints
     app.register_blueprint(mechanic_bp, url_prefix='/mechanics')
+    app.register_blueprint(service_ticket_bp, url_prefix='/service_tickets')
     return app
 

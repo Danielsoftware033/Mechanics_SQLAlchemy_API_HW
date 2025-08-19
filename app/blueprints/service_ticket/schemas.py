@@ -1,6 +1,6 @@
 from app.extensions import ma
 from app.models import ServiceTicket
-
+from marshmallow_sqlalchemy import SQLAlchemyAutoSchema
 
 class ServiceTicketSchema(ma.SQLAlchemyAutoSchema):
     class Meta:
