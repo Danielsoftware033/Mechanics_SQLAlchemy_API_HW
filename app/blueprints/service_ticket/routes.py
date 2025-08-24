@@ -3,6 +3,13 @@ from . import service_ticket_bp
 from .schemas import service_ticket_schema, service_tickets_schema
 from flask import request, jsonify
 from app.models import Mechanic, ServiceTicket, db
+from app.util.auth import token_required
+
+
+# @service_ticket_bp.route("/my-tickets", methods=["GET"])
+# @token_required
+# def my_tickets():
+
 
 
 @service_ticket_bp.route("/", methods=["POST"])

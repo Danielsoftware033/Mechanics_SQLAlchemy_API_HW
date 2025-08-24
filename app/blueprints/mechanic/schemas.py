@@ -8,5 +8,5 @@ class MechanicSchema(ma.SQLAlchemyAutoSchema):
 
 mechanic_schema = MechanicSchema() #Creating an instance of my schema that I can actually use to validate, deserialize, and serialize JSON
 mechanics_schema = MechanicSchema(many=True) #Allows this schema to translate a list of User objects all at once
-
+login_schema = MechanicSchema(exclude=['first_name', 'last_name', 'salary', 'address'])
 
