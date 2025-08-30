@@ -5,9 +5,11 @@ from flask import request, jsonify
 from werkzeug.security import generate_password_hash, check_password_hash
 from app.util.auth import encode_token, token_required
 from app.models import Mechanic, db
+from app.extensions import limiter, cache
 
 
 @mechanic_bp.route('/login', methods=['POST'])
+@limiter.limit("20 per day")
 def login():
     try:
         data = login_schema.load(request.json) # Send email and password
@@ -17,7 +19,7 @@ def login():
     mechanic = db.session.query(Mechanic).where(Mechanic.email==data['email']).first() #Search my db for a user with the passed in email
 
     if mechanic and check_password_hash(mechanic.password, data['password']): #Check the user stored password hash against the password that was sent
-        token = encode_token(mechanic.id)
+        token = encode_token('mechanic', mechanic.id)
         return jsonify({
             "message": f'Welcome {mechanic.username}',
             "token": token
@@ -42,23 +44,27 @@ def create_mechanic():
 
 
 @mechanic_bp.route('/', methods=['GET'])
+@cache.cached(timeout=30)
 def read_mechanics():
     mechanics = db.session.query(Mechanic).all()
     return mechanics_schema.jsonify(mechanics), 200
 
 
-@mechanic_bp.route('/<int:mechanic_id>', methods=['GET'])
+@mechanic_bp.route('/profile', methods=['GET'])
+@limiter.limit("15 per hour")
 @token_required
 def read_mechanic(mechanic_id):
+    mechanic_id = request.mechanic_id
     mechanic = db.session.get(Mechanic, mechanic_id)
     if not mechanic:
         return jsonify({"message": "Mechanic not found"}), 404
     return mechanic_schema.jsonify(mechanic), 200
 
 
-@mechanic_bp.route('/<int:mechanic_id>', methods=['PUT'])
+@mechanic_bp.route('/', methods=['PUT'])
 @token_required
 def update_mechanic(mechanic_id):
+    mechanic_id = request.mechanic_id
     mechanic = db.session.get(Mechanic, mechanic_id)
     if not mechanic:
         return jsonify({"message": "Mechanic not found"}), 404
@@ -72,14 +78,14 @@ def update_mechanic(mechanic_id):
     return mechanic_schema.jsonify(mechanic), 200
 
 
-@mechanic_bp.route('/<int:mechanic_id>', methods=['DELETE'])
+@mechanic_bp.route('/', methods=['DELETE'])
 @token_required
 def delete_mechanic(mechanic_id):
+    mechanic_id = request.mechanic_id
     mechanic = db.session.get(Mechanic, mechanic_id)
     if not mechanic:
         return jsonify({"message": "Mechanic not found"}), 404
     db.session.delete(mechanic)
     db.session.commit()
     return jsonify({"message": f"Successfully deleted mechanic {mechanic_id}"}), 200
-
 
