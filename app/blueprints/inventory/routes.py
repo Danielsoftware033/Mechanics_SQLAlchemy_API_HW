@@ -53,6 +53,6 @@ def delete_inventory(inventory_id):
     inventory = db.session.get(Inventory,inventory_id)
     db.session.delete(inventory)
     db.session.commit()
-    return jsonify(f"Successfully deleted part {inventory_id}")
+    return jsonify(f"Successfully deleted part {inventory_id}"), 200
 
 

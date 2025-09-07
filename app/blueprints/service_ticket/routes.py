@@ -7,7 +7,7 @@ from app.util.auth import token_required, customer_token_required
 from app.extensions import limiter
          
 
-@service_ticket_bp.route("/", methods=["POST"])
+@service_ticket_bp.route("", methods=["POST"])
 def create_service_ticket():
     try:
         data = service_ticket_schema.load(request.json)
@@ -20,7 +20,7 @@ def create_service_ticket():
     return service_ticket_schema.jsonify(new_ticket), 201
 
 
-@service_ticket_bp.route("/", methods=["GET"])
+@service_ticket_bp.route("", methods=["GET"])
 def read_service_tickets():
     tickets = db.session.query(ServiceTicket).all()
     return service_tickets_schema.jsonify(tickets), 200

@@ -10,26 +10,6 @@ from sqlalchemy import select
 
 
 
-# @customers_bp.route('/login', methods=['POST'])
-# @limiter.limit("5 per day")
-# def login():
-#     try:
-#         data = login_schema.load(request.json) # Send email and password
-#     except ValidationError as e:
-#         return jsonify(e.messages), 400 #Returning the error as a response so my client can see whats wrong.
-    
-#     customer = db.session.query(Customer).where(Customer.email==data['email']).first() #Search my db for a user with the passed in email
-
-#     if customer and check_password_hash(customer.password, data['password']): #Check the user stored password hash against the password that was sent
-#         token = encode_token('customer', customer.id)
-#         return jsonify({
-#             "message": f'Welcome {customer.first_name}',
-#             "token": token
-#         }), 200
-    
-#     return jsonify("Invalid email or password!"), 403
-
-
 #CREATE Customer ROUTE
 @customers_bp.route('', methods=['POST']) 
 @limiter.limit("5 per day")

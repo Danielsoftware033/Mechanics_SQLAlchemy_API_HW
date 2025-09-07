@@ -19,16 +19,16 @@ def login():
     mechanic = db.session.query(Mechanic).where(Mechanic.email==data['email']).first() #Search my db for a user with the passed in email
 
     if mechanic and check_password_hash(mechanic.password, data['password']): #Check the user stored password hash against the password that was sent
-        token = encode_token('mechanic', mechanic.id)
+        token = encode_token(mechanic.id)
         return jsonify({
-            "message": f'Welcome {mechanic.username}',
+            "message": f'Welcome {mechanic.first_name}',
             "token": token
         }), 200
     
     return jsonify("Invalid email or password!"), 403
 
 
-@mechanic_bp.route('/', methods=['POST'])
+@mechanic_bp.route('', methods=['POST'])
 def create_mechanic():
     try:
         data = mechanic_schema.load(request.json)
@@ -43,7 +43,7 @@ def create_mechanic():
     return mechanic_schema.jsonify(new_mechanic), 201
 
 
-@mechanic_bp.route('/', methods=['GET'])
+@mechanic_bp.route('', methods=['GET'])
 @cache.cached(timeout=30)
 def read_mechanics():
     mechanics = db.session.query(Mechanic).all()
@@ -61,7 +61,7 @@ def read_mechanic(mechanic_id):
     return mechanic_schema.jsonify(mechanic), 200
 
 
-@mechanic_bp.route('/', methods=['PUT'])
+@mechanic_bp.route('', methods=['PUT'])
 @token_required
 def update_mechanic(mechanic_id):
     mechanic_id = request.mechanic_id
@@ -78,7 +78,7 @@ def update_mechanic(mechanic_id):
     return mechanic_schema.jsonify(mechanic), 200
 
 
-@mechanic_bp.route('/', methods=['DELETE'])
+@mechanic_bp.route('', methods=['DELETE'])
 @token_required
 def delete_mechanic(mechanic_id):
     mechanic_id = request.mechanic_id

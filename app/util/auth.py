@@ -6,12 +6,11 @@ from flask import request, jsonify
 
 SECRET_KEY = "super duper mega secrets"
 
-def encode_token(role, user_id):
+def encode_token(mechanic_id):
     payload = {
         'exp': datetime.now(timezone.utc) + timedelta(days=0, hours=1), 
         'iat': datetime.now(timezone.utc),
-        'sub': str(user_id),
-        'role': str(role)
+        'sub': str(mechanic_id)
     }
 
     token = jwt.encode(payload, SECRET_KEY, algorithm='HS256')
