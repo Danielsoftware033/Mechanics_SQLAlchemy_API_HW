@@ -134,6 +134,42 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "Add Part to ticket",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:5000/service_tickets/1/add-part/1",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"service_tickets",
+						"1",
+						"add-part",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Mechanic Tickets",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
 		}
 	]
 }

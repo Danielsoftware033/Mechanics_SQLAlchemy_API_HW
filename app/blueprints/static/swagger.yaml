@@ -1,0 +1,604 @@
+
+swagger: '2.0'
+info:
+  title: "Mechanic Management API"
+  description: "Used to manage the everyday functionalities of a mechanic shop"
+  version: "0.0.1"
+
+host: "127.0.0.1:5000" 
+schemes:
+  - "http"
+consumes:
+  - "application/json" 
+produces:
+  - "application/json" 
+
+securityDefinitions: 
+  bearerAuth:
+    type: apiKey
+    name: Authorization
+    in: header
+
+
+paths: 
+
+  /mechanics/login: 
+    post: 
+      tags:
+        - Mechanic 
+      summary: "Login endpoint (generates a token)"
+      description: "Validates mechanic credentials (email and password), and produces a mechanic specific token." #more in-depth info about the endpoint
+      parameters:
+        - in: "body" 
+          name: "body"
+          description: "Login Credentials"
+          required: true 
+          schema:
+            $ref: "#/definitions/LoginCredentials"
+      responses:
+        200:
+          description: "Login Successful"
+          schema:
+            $ref: "#/definitions/LoginResponse"
+          examples:
+            application/json:
+              message: "Welcome User"
+              token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOj..."
+           
+  /mechanics:
+    post: 
+      tags:
+        - Mechanic
+      summary: "Register Mechanic"
+      description: "Send in mechanic info, to create a mechanic profile that will be stored in the database. "
+      parameters:
+        - in: "body"
+          name: "body"
+          description: "New Mechanic Information"
+          required: true
+          schema:
+            $ref: "#/definitions/MechanicInput"
+          
+      responses:
+        201:
+          description: "Creation Successful"
+          schema:
+            $ref: "#/definitions/MechanicResponse"
+          examples:
+            application/json:
+              salary: 75000.00
+              address: "2752 Conch st."
+              email: "laurne@gmail.com"
+              id: 0
+              password: "<encrypted password>"
+              first_name: "Thomas"
+              last_name: "Smith"
+
+    get: 
+      tags:
+        - Mechanic
+      summary: "Returns all mechanics"
+      description: "Endpoint to recieve an array of mechanic objects."
+      responses:
+        200:
+          description: "Successfully Retrieved Users"
+          schema:
+            $ref: "#/definitions/MechanicsResponse"   
+          examples:
+            application/json:
+              salary: 75000.00
+              address: "2752 Conch st."
+              email: "laurne@gmail.com"
+              id: 0
+              password: "<encrypted password>"
+              first_name: "Thomas"
+              last_name: "Smith"
+
+    put: 
+      tags:
+        - Mechanic
+      summary: "Update Mechanic Endpoint"
+      description: "Endpoint to update a mechanic, requires a token, mechanic will be identified by the token"
+      security:
+        - bearerAuth: [] 
+      parameters:
+        - in: "body"
+          name: "body"
+          description: "Mechanic Updates"
+          required: true
+          schema:
+            $ref: "#/definitions/MechanicInput"
+
+      responses:
+        200:
+          description: "Creation Successful"
+          schema:
+            $ref: "#/definitions/MechanicResponse"
+          examples:
+            application/json:
+                salary: 75000.00
+                address: "2752 Conch st."
+                email: "laurne@gmail.com"
+                id: 0
+                password: "<encrypted password>"
+                first_name: "Thomas"
+                last_name: "Smith"
+
+    delete: #Delete a user
+      tags:
+        - Mechanic
+      summary: "Delete a Mechanic"
+      description: "Delete a Mechanic, requires a token, token will be used to identify mechanic to delete."
+      security:
+        - bearerAuth: []
+      responses:
+        200:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+
+
+
+  /customers
+    post: 
+      tags:
+        - Customer
+      summary: "Register Customer"
+      description: "Send in customer info, to create a customer profile that will be stored in the database. "
+      parameters:
+        - in: "body"
+          name: "body"
+          description: "New Customer Information"
+          required: true
+          schema:
+            $ref: "#/definitions/CustomerInput"
+          
+      responses:
+        201:
+          description: "Creation Successful"
+          schema:
+            $ref: "#/definitions/CustomerResponse"
+          examples:
+            application/json:
+              phone: "813-777-3993"
+              address: "2752 Conch st."
+              email: "laurne@gmail.com"
+              id: 0
+              first_name: "Thomas"
+              last_name: "Smith"
+
+    get: 
+      tags:
+        - Customer
+      summary: "Returns all customers"
+      description: "Endpoint to recieve an array of customer objects."
+      responses:
+        200:
+          description: "Successfully Retrieved Customers"
+          schema:
+            $ref: "#/definitions/CustomersResponse"   
+          examples:
+            application/json:
+              phone: "813-777-3993"
+              address: "2752 Conch st."
+              email: "laurne@gmail.com"
+              id: 0
+              first_name: "Thomas"
+              last_name: "Smith"
+
+    put: 
+      tags:
+        - Customer
+      summary: "Update Customer Endpoint"
+      description: "Endpoint to update a customer, requires a token, customer will be identified by the token"
+      security:
+        - bearerAuth: [] 
+      parameters:
+        - in: "body"
+          name: "body"
+          description: "Customer Updates"
+          required: true
+          schema:
+            $ref: "#/definitions/CustomerInput"
+
+      responses:
+        200:
+          description: "Creation Successful"
+          schema:
+            $ref: "#/definitions/CustomerResponse"
+          examples:
+            application/json:
+              phone: "813-777-3993"
+              address: "2752 Conch st."
+              email: "laurne@gmail.com"
+              id: 0
+              first_name: "Thomas"
+              last_name: "Smith"
+
+    delete: 
+      tags:
+        - Customer
+      summary: "Delete a Customer"
+      description: "Delete a Customer, requires a token, token will be used to identify customer to delete."
+      security:
+        - bearerAuth: []
+      responses:
+        200:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+
+
+
+  /parts
+    post: 
+      tags:
+        - Inventory
+      summary: "Register Inventory"
+      description: "Send in part info, to create a part that will be stored in the database. "
+      parameters:
+        - in: "body"
+          name: "body"
+          description: "New Part Information"
+          required: true
+          schema:
+            $ref: "#/definitions/InventoryInput"
+          
+      responses:
+        201:
+          description: "Creation Successful"
+          schema:
+            $ref: "#/definitions/InventoryResponse"
+          examples:
+            application/json:
+              id: 0
+              name: "Wheel"
+              price: 139.00  
+
+    get: 
+      tags:
+        - Inventory
+      summary: "Returns all parts"
+      description: "Endpoint to recieve an array of part objects."
+      responses:
+        200:
+          description: "Successfully Retrieved Parts"
+          schema:
+            $ref: "#/definitions/InventoriesResponse"   
+          examples:
+            application/json:
+              id: 0
+              name: "Wheel"
+              price: 139.00
+
+  /parts/{inventory_id}
+    put:
+      tags:
+        - Inventory
+      summary: "Update Inventory Endpoint"
+      description: "Endpoint to update a part" 
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+            minimum: 1
+          description: The inventory ID
+        - in: "body"
+          name: "body"
+          description: "Inventory Part Updates"
+          required: true
+          schema:
+            $ref: "#/definitions/InventoryInput"
+
+      responses:
+        200:
+          description: "Update Successful"
+          schema:
+            $ref: "#/definitions/InventoryResponse"
+          examples:
+            application/json:
+              id: 0
+              name: "New Wheel"
+              price: "219.25"
+
+    delete:
+      tags:
+        - Inventory
+      summary: "Delete Inventory Endpoint"
+      description: "Endpoint to delete a part" 
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+            minimum: 1
+          description: The inventory ID
+
+      responses:
+        200:
+          description: "Deletion Successful"
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                
+
+
+  /service_tickets
+    post: 
+      tags:
+        - Service_ticket
+      summary: "Register Service Ticket"
+      description: "Send in service ticket info, to create a service ticket that will be stored in the database. "
+      parameters:
+        - in: "body"
+          name: "body"
+          description: "New Service ticket Information"
+          required: true
+          schema:
+            $ref: "#/definitions/Service_Ticket_Input"
+          
+      responses:
+        201:
+          description: "Creation Successful"
+          schema:
+            $ref: "#/definitions/Service_Ticket_Response"
+          examples:
+            application/json:
+              service_desc: "Add new tire to back"
+              price: 239.00
+              VIN: "1HAGJO53JO342NN"
+              service_date: "1900-01-01"
+              customer_id: 0
+              id: 0
+
+    get: 
+      tags:
+        - Service_ticket
+      summary: "Returns all service tickets"
+      description: "Endpoint to recieve an array of service tickets."
+      responses:
+        200:
+          description: "Successfully Retrieved Parts"
+          schema:
+            $ref: "#/definitions/Service_Tickets_Response"   
+
+  /parts/{ticket_id}/assign-mechanic/{mechanic_id}
+    put:
+      tags:
+        - Service_ticket
+      summary: "Assign Mechanic for Service Ticket Endpoint"
+      description: "Endpoint to assign a mechanic" 
+      parameters:
+        - in: path
+          name: ticket_ticket
+          required: true
+          schema:
+            type: integer
+            minimum: 1
+          description: "The service ticket ID"
+        - in: path
+          name: mechanic_id
+          required: true
+          schema:
+            type: integer
+            minimum: 1
+          description: "The ID of the mechanic to assign"
+
+      responses:
+        200:
+          description: "Update Successful"
+          schema:
+            $ref: "#/definitions/InventoryResponse"
+          examples:
+            application/json:
+              service_desc: "Add new tire to back"
+              price: 239.00
+              VIN: "1HAGJO53JO342NN"
+              service_date: "1900-01-01"
+              customer_id: 0
+              id: 
+            
+
+              
+
+definitions: 
+
+  LoginCredentials: 
+    type: object
+    properties:
+      email:
+        type: string
+      password:
+        type: string
+
+    required:
+      - email
+      - password
+
+  LoginResponse: 
+    type: object
+    properties:
+      message:
+        type: string
+      token:
+        type: string
+
+  MechanicInput: 
+    type: object
+    properties:
+      salary:
+        type: float
+        example: 20000.00
+      address:
+        type: string
+        example: "2752 Conch St."
+      email:
+        type: string
+        example: "lauren@gmail.com"
+      password:
+        type: string
+        example: "1234"
+      first_name:
+        type: string
+        example: "Thomas"
+      last_name:
+        type: string
+        example: "Smith" 
+
+    required:
+      - first_name
+      - last_name
+      - email
+      - password
+      - salary
+      - address
+
+  MechanicResponse: 
+    type: object
+    properties:
+      salary:
+        type: float
+      address:
+        type: string
+      email:
+        type: string
+      id:
+        type: integer
+      password:
+        type: string
+      first_name:
+        type: string
+      last_name:
+        type: string
+
+  MechanicsResponse: 
+    type: array
+    items:
+      type: object
+      properties:
+        salary:
+          type: float
+        address:
+          type: string
+        email:
+          type: string
+        id:
+          type: integer
+        password:
+          type: string
+        first_name:
+          type: string
+        last_name:
+          type: string
+
+
+          
+
+  CustomerInput: 
+    type: object
+    properties:
+      phone:
+        type: string
+        example: "813-777-3993"
+      address:
+        type: string
+        example: "2752 Conch St."
+      email:
+        type: string
+        example: "lauren@gmail.com"
+      first_name:
+        type: string
+        example: "Thomas"
+      last_name:
+        type: string
+        example: "Smith" 
+
+    required:
+      - first_name
+      - last_name
+      - email
+      - phone
+      - address
+
+  CustomerResponse: 
+    type: object
+    properties:
+      phone:
+        type: string
+      address:
+        type: string
+      email:
+        type: string
+      id:
+        type: integer
+      first_name:
+        type: string
+      last_name:
+        type: string
+
+  CustomersResponse: 
+    type: array
+    items:
+      type: object
+      properties:
+        phone:
+          type: string
+        address:
+          type: string
+        email:
+          type: string
+        id:
+          type: integer
+        first_name:
+          type: string
+        last_name:
+          type: string
+
+
+
+
+  InventoryInput: 
+    type: object
+    properties:
+      name:
+        type: string
+        example: "Wheel"
+      price:
+        type: float
+        example: 139.00 
+
+    required:
+      - name
+      - price
+ 
+  InventoryResponse: 
+
+    type: object
+    properties:
+      id:
+        type: integer
+      name:
+        type: string
+      price:
+        type: float
+
+  InventoriesResponse: 
+    type: array
+    items:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        price:
+          type: float
