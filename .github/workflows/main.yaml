@@ -3,7 +3,7 @@ name: Flask Continuous Integration
 
 on:   # trigger whenever there is a push to my main branch
   push:
-    branches: [main, master]
+    branches: [main, master, inventory_model-added]
 
 jobs: # the actions
   build: 
