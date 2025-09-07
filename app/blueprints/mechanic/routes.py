@@ -63,7 +63,7 @@ def read_mechanic(mechanic_id):
 
 @mechanic_bp.route('', methods=['PUT'])
 @token_required
-def update_mechanic(mechanic_id):
+def update_mechanic():
     mechanic_id = request.mechanic_id
     mechanic = db.session.get(Mechanic, mechanic_id)
     if not mechanic:
@@ -80,7 +80,7 @@ def update_mechanic(mechanic_id):
 
 @mechanic_bp.route('', methods=['DELETE'])
 @token_required
-def delete_mechanic(mechanic_id):
+def delete_mechanic():
     mechanic_id = request.mechanic_id
     mechanic = db.session.get(Mechanic, mechanic_id)
     if not mechanic:
