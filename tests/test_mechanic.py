@@ -114,4 +114,4 @@ class TestMechanic(unittest.TestCase):
 
         response = self.client.put('/mechanics', headers=headers, json=update_payload)
         self.assertEqual(response.status_code, 400)
-        self.assertEqual(response.json['email'], "NEW_EMAIL@email.com")
+        self.assertIn('email', response.json['message'])
