@@ -85,7 +85,7 @@ jobs:
           python -m pip install -r requirements.txt
 
       - name: Deploy to Production
-        uses: johnbeynon/render-deploy-action@v.0.0.8
+        uses: johnbeynon/render-deploy-action@v0.0.8
         with:
           service_id: ${{ secrets.SERVICE_ID }}
           api_key: ${{ secrets.RENDER_API_KEY }}
