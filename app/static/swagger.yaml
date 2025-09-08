@@ -141,32 +141,32 @@ paths:
 
 
   /customers:
-  post:
-    tags:
-      - Customer
-    summary: "Register Customer"
-    description: "Send in customer info, to create a customer profile that will be stored in the database."
-    parameters:
-      - in: body
-        name: body
-        description: "New Customer Information"
-        required: true
-        schema:
-          $ref: "#/definitions/CustomerInput"
+    post:
+      tags:
+        - Customer
+      summary: "Register Customer"
+      description: "Send in customer info, to create a customer profile that will be stored in the database."
+      parameters:
+        - in: body
+          name: body
+          description: "New Customer Information"
+          required: true
+          schema:
+            $ref: "#/definitions/CustomerInput"
           
-    responses:
-      201:
-        description: "Creation Successful"
-        schema:
-          $ref: "#/definitions/CustomerResponse"
-        examples:
-          application/json:
-            phone: "813-777-3993"
-            address: "2752 Conch st."
-            email: "laurne@gmail.com"
-            id: 0
-            first_name: "Thomas"
-            last_name: "Smith"
+      responses:
+        201:
+          description: "Creation Successful"
+          schema:
+            $ref: "#/definitions/CustomerResponse"
+          examples:
+            application/json:
+              phone: "813-777-3993"
+              address: "2752 Conch st."
+              email: "laurne@gmail.com"
+              id: 0
+              first_name: "Thomas"
+              last_name: "Smith"
 
     get: 
       tags:

@@ -53,7 +53,7 @@ def read_mechanics():
 @mechanic_bp.route('/profile', methods=['GET'])
 @limiter.limit("15 per hour")
 @token_required
-def read_mechanic(mechanic_id):
+def read_mechanic():
     mechanic_id = request.mechanic_id
     mechanic = db.session.get(Mechanic, mechanic_id)
     if not mechanic:
