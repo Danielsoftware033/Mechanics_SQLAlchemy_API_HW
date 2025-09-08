@@ -231,9 +231,67 @@ paths:
               message:
                 type: string
 
+  /customers/profile:
+    get:
+      tags:
+        - Customer
+      summary: "Returns the profile of the authorized customer"
+      description: "Endpoint retrieves the profile of the customer identified via the token."
+      security:
+        - bearerAuth: []   # If you use token auth
+      responses:
+        200:
+          description: "Successfully retrieved customer profile"
+          schema:
+            $ref: "#/definitions/CustomerResponse"
+          examples:
+            application/json:
+              phone: "813-777-3993"
+              address: "2752 Conch st."
+              email: "lauren@gmail.com"
+              id: 0
+              first_name: "Thomas"    
+              last_name: "Smith"
+
+  /customers/paginated:
+    get:
+      tags:
+        - Customer
+      summary: "Get a paginated list of customers"
+      description: "Endpoint to recieve an array of customer objects in a paginated format."
+      parameters:
+        - in: query
+          name: page
+          type: integer
+          required: false
+          description: "Page number (default is 1)"
+        - in: query
+          name: per_page
+          type: integer
+          required: false
+          description: "Number of items per page (default is 10)"
+      responses:
+        200:
+          description: "Successfully Retrieved Paginated Customers"
+          schema:
+            $ref: "#/definitions/PaginatedCustomersResponse"
+          examples:
+            application/json:
+              total: 50
+              pages: 5
+              current_page: 1
+              per_page: 10
+              customers:
+                - phone: "813-777-3993"
+                  address: "2752 Conch st."
+                  email: "lauren@gmail.com"
+                  id: 0
+                  first_name: "Thomas"
+                  last_name: "Smith"  
 
 
-  /parts
+
+  /parts:
     post: 
       tags:
         - Inventory
@@ -274,7 +332,7 @@ paths:
               name: "Wheel"
               price: 139.00
 
-  /parts/{inventory_id}
+  /parts/{inventory_id}:
     put:
       tags:
         - Inventory
@@ -331,7 +389,7 @@ paths:
                 
 
 
-  /service_tickets
+  /service_tickets:
     post: 
       tags:
         - Service_ticket
@@ -370,15 +428,29 @@ paths:
           schema:
             $ref: "#/definitions/Service_Tickets_Response"   
 
-  /parts/{ticket_id}/assign-mechanic/{mechanic_id}
+  /service_tickets/my-tickets:
+    get:
+      tags:
+        - Service_ticket
+      summary: "Returns all service tickets assigned to the authorized mechanic"
+      description: "Endpoint retrieves an array of service tickets for the mechanic identified via the token."
+      security:
+        - bearerAuth: []   # If you use token auth
+      responses:
+        200:
+          description: "Successfully retrieved service tickets"
+          schema:
+            $ref: "#/definitions/Service_Tickets_Response"
+
+  /service_tickets/{ticket_id}/assign-mechanic/{mechanic_id}:
     put:
       tags:
         - Service_ticket
       summary: "Assign Mechanic for Service Ticket Endpoint"
-      description: "Endpoint to assign a mechanic" 
+      description: "Assigns a mechanic specified by 'mechanic_id' to the service ticket specified by 'ticket_id'." 
       parameters:
         - in: path
-          name: ticket_ticket
+          name: ticket_id
           required: true
           schema:
             type: integer
@@ -396,16 +468,63 @@ paths:
         200:
           description: "Update Successful"
           schema:
-            $ref: "#/definitions/InventoryResponse"
-          examples:
-            application/json:
-              service_desc: "Add new tire to back"
-              price: 239.00
-              VIN: "1HAGJO53JO342NN"
-              service_date: "1900-01-01"
-              customer_id: 0
-              id: 
-            
+            $ref: "#/definitions/Service_Ticket_Response"
+
+  /service_tickets/{ticket_id}/remove-mechanic/{mechanic_id}:   
+    put:
+      tags:
+        - Service_ticket
+      summary: "Remove Mechanic from a service ticket"
+      description: "Removes the mechanic specified by 'mechanic_id' from the service ticket specified by 'ticket_id'."
+      parameters:
+        - in: path
+          name: ticket_id
+          required: true
+          schema:
+            type: integer
+            minimum: 1
+          description: "The service ticket ID"
+        - in: path
+          name: mechanic_id
+          required: true
+          schema:
+            type: integer
+            minimum: 1
+          description: "The ID of the mechanic to remove"
+
+      responses:
+        200:
+          description: "Mechanic successfully removed from service ticket"
+          schema:
+            $ref: "#/definitions/Service_Ticket_Response"      
+
+  /service_tickets/{ticket_id}/add-part/{inventory_id}:
+    put:
+      tags:
+        - Service_ticket
+      summary: "Add a part to a service ticket"
+      description: "Adds a part specified by 'inventory_id' to the service ticket specified by 'ticket_id'." 
+      parameters:
+        - in: path
+          name: ticket_id
+          required: true
+          schema:
+            type: integer
+            minimum: 1
+          description: "The service ticket ID"
+        - in: path
+          name: inventory_id
+          required: true
+          schema:
+            type: integer
+            minimum: 1
+          description: "The ID of the part to add"
+
+      responses:
+        200:
+          description: "Part successfully added to service ticket"
+          schema:
+            $ref: "#/definitions/Service_Ticket_Response"
 
               
 
@@ -562,6 +681,22 @@ definitions:
         last_name:
           type: string
 
+  PaginatedCustomersResponse:
+    type: object      
+    properties:
+      total:
+        type: integer
+      pages:
+        type: integer
+      current_page:
+        type: integer
+      per_page:
+        type: integer
+      customers:
+        type: array
+        items:
+          $ref: "#/definitions/CustomerResponse"
+
 
 
 
@@ -580,7 +715,6 @@ definitions:
       - price
  
   InventoryResponse: 
-
     type: object
     properties:
       id:
@@ -590,7 +724,7 @@ definitions:
       price:
         type: float
 
-  InventoriesResponse: 
+  InventoriesResponse:
     type: array
     items:
       type: object
@@ -601,3 +735,69 @@ definitions:
           type: string
         price:
           type: float
+
+
+
+
+  Service_Ticket_Input:
+    type: object
+    properties:
+      service_desc:
+        type: string
+        example: "Add new tire to back"
+      price:
+        type: float
+        example: 239.00
+      VIN:
+        type: string
+        example: "1HAGJO53JO342NN"
+      service_date:
+        type: string
+        format: date
+        example: "1900-01-01"
+      customer_id:
+        type: integer
+        example: 1
+
+    required:
+      - service_desc
+      - price
+      - VIN
+      - service_date
+      - customer_id
+
+  Service_Ticket_Response:
+    type: object
+    properties:
+      service_desc:
+        type: string
+      price:
+        type: float
+      VIN:
+        type: string
+      service_date:
+        type: string
+        format: date
+      customer_id:
+        type: integer
+      id:
+        type: integer
+
+  Service_Tickets_Response:
+    type: array
+    items:
+      type: object
+      properties:
+        service_desc:
+          type: string
+        price:
+          type: float
+        VIN:
+          type: string
+        service_date:
+          type: string
+          format: date
+        customer_id:
+          type: integer
+        id:
+          type: integer
