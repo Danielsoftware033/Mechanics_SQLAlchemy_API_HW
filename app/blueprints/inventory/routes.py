@@ -24,7 +24,7 @@ def create_inventory():
 @inventories_bp.route('', methods=['GET']) 
 def read_inventories():
     inventories = db.session.query(Inventory).all()
-    return inventory_schema.jsonify(inventories), 200
+    return inventories_schema.jsonify(inventories), 200
 
 
 @inventories_bp.route('/<int:inventory_id>', methods=['PUT'])
