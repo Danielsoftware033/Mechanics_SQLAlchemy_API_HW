@@ -3,7 +3,7 @@ from . import customers_bp
 from .schemas import customer_schema, customers_schema, login_schema
 from flask import request, jsonify
 from werkzeug.security import generate_password_hash, check_password_hash
-from app.util.auth import encode_token, token_required
+from app.util.auth import encode_token, token_required, customer_token_required
 from app.models import Customer, db
 from app.extensions import limiter, cache
 from sqlalchemy import select
@@ -12,14 +12,12 @@ from sqlalchemy import select
 
 #CREATE Customer ROUTE
 @customers_bp.route('', methods=['POST']) 
-@limiter.limit("5 per day")
+@limiter.limit("20 per day")
 def create_customer():
     try:
         data = customer_schema.load(request.json)
     except ValidationError as e:
         return jsonify(e.messages), 400 
-    
-    data['password'] = generate_password_hash(data['password']) 
 
     new_customer = Customer(**data) 
     db.session.add(new_customer)
@@ -49,9 +47,9 @@ def read_customers_paginated():
 
 #Read Individual Customer - Using a Dynamic Endpoint
 @customers_bp.route('/profile', methods=['GET'])
-@limiter.limit("15 per hour")
-@token_required
-def read_customer(customer_id):
+@limiter.limit("25 per hour")
+@customer_token_required
+def read_customer():
     customer_id = request.customer_id
     customer = db.session.get(Customer, customer_id)
     return customer_schema.jsonify(customer), 200
@@ -59,9 +57,9 @@ def read_customer(customer_id):
 
 #Update a User
 @customers_bp.route('', methods=['PUT'])
-@limiter.limit("1 per month")
-@token_required
-def update_customer(customer_id):
+@limiter.limit("20 per month")
+@customer_token_required
+def update_customer():
     customer_id = request.customer_id
     customer = db.session.get(Customer, customer_id) 
 
@@ -73,8 +71,6 @@ def update_customer(customer_id):
     except ValidationError as e:
         return jsonify({"message": e.messages}), 400
     
-    customer_data['password'] = generate_password_hash(customer_data['password'])
-    
     for key, value in customer_data.items(): 
         setattr(customer, key, value) 
 
@@ -85,8 +81,8 @@ def update_customer(customer_id):
 #Delete a customer
 @customers_bp.route('', methods=['DELETE'])
 @limiter.limit("5 per day")
-@token_required
-def delete_customer(customer_id):
+@customer_token_required
+def delete_customer():
     customer_id = request.customer_id 
     
     customer = db.session.get(Customer, customer_id) 

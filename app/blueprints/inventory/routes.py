@@ -47,7 +47,7 @@ def update_inventory(inventory_id):
     return inventory_schema.jsonify(inventory), 200
 
 
-@inventories_bp.route('/<int:inventory_id', methods=['DELETE'])
+@inventories_bp.route('/<int:inventory_id>', methods=['DELETE'])
 @limiter.limit("8 per day")
 def delete_inventory(inventory_id):
     inventory = db.session.get(Inventory,inventory_id)
