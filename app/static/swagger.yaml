@@ -187,22 +187,6 @@ paths:
               first_name: "Thomas"
               last_name: "Smith"
 
-    delete: 
-      tags:
-        - Customer
-      summary: "Delete a Customer"
-      description: "Delete a Customer, requires a token, token will be used to identify customer to delete."
-      security:
-        - bearerAuth: []
-
-      responses:
-        200:
-          schema:
-            type: object
-            properties:
-              message:
-                type: string
-
   /customers/{customer_id}:
     put: 
       tags:
@@ -216,7 +200,7 @@ paths:
           schema:
             type: integer
             minimum: 1
-          description: The inventory ID
+          description: The customer ID
         - in: "body"
           name: "body"
           description: "Customer Updates"
@@ -237,6 +221,28 @@ paths:
               id: 0
               first_name: "Thomas"
               last_name: "Smith"
+
+    delete: 
+      tags:
+        - Customer
+      summary: "Delete a Customer"
+      description: "Endpoint to delete a Customer"
+      parameters:
+        - in: path
+          name: customer_id
+          required: true
+          schema:
+            type: integer
+            minimum: 1
+          description: The customer ID
+
+      responses:
+        200:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
 
   /customers/profile:
     get:
