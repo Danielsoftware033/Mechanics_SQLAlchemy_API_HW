@@ -341,7 +341,7 @@ paths:
       description: "Endpoint to update a part" 
       parameters:
         - in: path
-          name: id
+          name: inventory_id
           required: true
           schema:
             type: integer
@@ -372,7 +372,7 @@ paths:
       description: "Endpoint to delete a part" 
       parameters:
         - in: path
-          name: id
+          name: inventory_id
           required: true
           schema:
             type: integer
