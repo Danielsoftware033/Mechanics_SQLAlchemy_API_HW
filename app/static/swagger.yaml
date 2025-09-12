@@ -271,28 +271,6 @@ paths:
               message:
                 type: string
 
-  /customers/profile:
-    get:
-      tags:
-        - Customer
-      summary: "Returns the profile of the authorized customer"
-      description: "Endpoint retrieves the profile of the customer identified via the token."
-      security:
-        - bearerAuth: []   # If you use token auth
-      responses:
-        200:
-          description: "Successfully retrieved customer profile"
-          schema:
-            $ref: "#/definitions/CustomerResponse"
-          examples:
-            application/json:
-              phone: "813-777-3993"
-              address: "2752 Conch st."
-              email: "lauren@gmail.com"
-              id: 0
-              first_name: "Thomas"    
-              last_name: "Smith"
-
   /customers/paginated:
     get:
       tags:
