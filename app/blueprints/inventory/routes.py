@@ -28,7 +28,7 @@ def read_inventories():
 
 
 @inventories_bp.route('/<int:inventory_id>', methods=['PUT'])
-@limiter.limit("8 per hour")
+@limiter.limit("20 per hour")
 def update_inventory(inventory_id):
     inventory = db.session.get(Inventory, inventory_id)
 

@@ -363,7 +363,7 @@ paths:
             application/json:
               id: 0
               name: "New Wheel"
-              price: "219.25"
+              price: 219.25
 
     delete:
       tags:
@@ -711,8 +711,10 @@ definitions:
         type: string
         example: "Wheel"
       price:
+        type: number
         type: float
         example: 139.00 
+
 
     required:
       - name
@@ -750,6 +752,7 @@ definitions:
         type: string
         example: "Add new tire to back"
       price:
+        type: number
         type: float
         example: 239.00
       VIN:
@@ -776,6 +779,7 @@ definitions:
       service_desc:
         type: string
       price:
+        type: number
         type: float
       VIN:
         type: string
@@ -795,6 +799,7 @@ definitions:
         service_desc:
           type: string
         price:
+          type: number
           type: float
         VIN:
           type: string
