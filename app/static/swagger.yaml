@@ -555,7 +555,8 @@ definitions:
     type: object
     properties:
       salary:
-        type: float
+        type: number
+        format: float
         example: 20000.00
       address:
         type: string
@@ -585,7 +586,8 @@ definitions:
     type: object
     properties:
       salary:
-        type: float
+        type: number
+        format: float
       address:
         type: string
       email:
@@ -605,7 +607,8 @@ definitions:
       type: object
       properties:
         salary:
-          type: float
+          type: number
+          format: float
         address:
           type: string
         email:

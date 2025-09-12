@@ -78,7 +78,7 @@ def add_part_ticket(ticket_id, inventory_id):
          ticket.inventories.append(part)
          db.session.commit()
          return jsonify({
-            'message': f'successfully added {part.name} to Inventory'
+            'message': f'successfully added {part.name} to Service Ticket {ticket.id}'
         }), 200
      
      return jsonify("This part is already on the service ticket"), 400

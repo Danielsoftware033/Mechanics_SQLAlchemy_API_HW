@@ -14,7 +14,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "",
+					"raw": "{\r\n    \"address\": \"201 fruitville street\",\r\n    \"email\": \"customertesting@email.com\",\r\n    \"first_name\": \"Gabroni\",\r\n    \"last_name\": \"Montell\",\r\n    \"phone\": \"6225990129\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -41,32 +41,129 @@
 		{
 			"name": "Get Customers",
 			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3NTc0OTkyNTAsImlhdCI6MTc1NzQ5NTY1MCwic3ViIjoiMSJ9.-_jyD86CBMn8XLWNEE3Qmf_OJH6sxQDneOhxVzA4VDI",
+							"type": "string"
+						}
+					]
+				},
 				"method": "GET",
-				"header": []
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:5000/customers",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"customers"
+					]
+				}
 			},
 			"response": []
 		},
 		{
 			"name": "Get Customers (Paginated)",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
 			"request": {
 				"method": "GET",
-				"header": []
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://127.0.0.1:5000/customers/paginated",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"customers",
+						"paginated"
+					]
+				}
 			},
 			"response": []
 		},
 		{
 			"name": "Get Customer",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
 			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3NTc1ODQ3NTcsImlhdCI6MTc1NzU4MTE1Nywic3ViIjoiMyJ9.tLI-wJOOsiMmZIMcRBfW2NxwxMkPImrRtZt4_sNH71Q",
+							"type": "string"
+						}
+					]
+				},
 				"method": "GET",
-				"header": []
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://127.0.0.1:5000/customers/profile",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"customers",
+						"profile"
+					]
+				}
 			},
 			"response": []
 		},
 		{
 			"name": "Update Customer",
 			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3NTc1ODQ3NTcsImlhdCI6MTc1NzU4MTE1Nywic3ViIjoiMyJ9.tLI-wJOOsiMmZIMcRBfW2NxwxMkPImrRtZt4_sNH71Q",
+							"type": "string"
+						}
+					]
+				},
 				"method": "PUT",
 				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"address\": \"201 funville street\",\r\n    \"first_name\": \"Glorious\",\r\n    \"last_name\": \"Malik\",\r\n    \"phone\": \"9910006259\",\r\n    \"email\": \"customertesting123@email.com\"\r\n\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
 				"url": {
 					"raw": "http://127.0.0.1:5000/customers",
 					"protocol": "http",
@@ -89,8 +186,17 @@
 			"request": {
 				"method": "DELETE",
 				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
 				"url": {
-					"raw": "http://127.0.0.1:5000/customers/profile",
+					"raw": "http://127.0.0.1:5000/customers/5",
 					"protocol": "http",
 					"host": [
 						"127",
@@ -101,7 +207,7 @@
 					"port": "5000",
 					"path": [
 						"customers",
-						"profile"
+						"5"
 					]
 				}
 			},

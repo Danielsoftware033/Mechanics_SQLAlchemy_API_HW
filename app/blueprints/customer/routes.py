@@ -56,11 +56,9 @@ def read_customer():
 
 
 #Update a User
-@customers_bp.route('', methods=['PUT'])
+@customers_bp.route('/<int:customer_id>', methods=['PUT'])
 @limiter.limit("20 per month")
-@customer_token_required
-def update_customer():
-    customer_id = request.customer_id
+def update_customer(customer_id):
     customer = db.session.get(Customer, customer_id) 
 
     if not customer: 
@@ -79,12 +77,9 @@ def update_customer():
 
 
 #Delete a customer
-@customers_bp.route('', methods=['DELETE'])
-@limiter.limit("5 per day")
-@customer_token_required
-def delete_customer():
-    customer_id = request.customer_id 
-    
+@customers_bp.route('/<int:customer_id>', methods=['DELETE'])
+@limiter.limit("15 per day")
+def delete_customer(customer_id):
     customer = db.session.get(Customer, customer_id) 
     db.session.delete(customer)
     db.session.commit()

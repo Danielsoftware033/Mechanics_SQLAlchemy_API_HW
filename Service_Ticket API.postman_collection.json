@@ -17,7 +17,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \r\n}",
+					"raw": "{\r\n    \"VIN\": \"1GDIJ537BHOH38583\",\r\n    \"customer_id\": 4,\r\n    \"price\": 3275.75,\r\n    \"service_desc\": \"Transmission replacement\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -76,7 +76,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \r\n}",
+					"raw": "",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -84,7 +84,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://127.0.0.1:5000/service_tickets/1/assign-mechanic/1",
+					"raw": "http://127.0.0.1:5000/service_tickets/2/assign-mechanic/1",
 					"protocol": "http",
 					"host": [
 						"127",
@@ -95,7 +95,7 @@
 					"port": "5000",
 					"path": [
 						"service_tickets",
-						"1",
+						"2",
 						"assign-mechanic",
 						"1"
 					]
@@ -116,7 +116,7 @@
 					"raw": "{\r\n    \r\n}"
 				},
 				"url": {
-					"raw": "http://127.0.0.1:5000/service_tickets/1/assign-mechanic/1",
+					"raw": "http://127.0.0.1:5000/service_tickets/2/remove-mechanic/1",
 					"protocol": "http",
 					"host": [
 						"127",
@@ -127,9 +127,42 @@
 					"port": "5000",
 					"path": [
 						"service_tickets",
-						"1",
-						"assign-mechanic",
+						"2",
+						"remove-mechanic",
 						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Mechanic Tickets",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3NTc1ODQ3NTcsImlhdCI6MTc1NzU4MTE1Nywic3ViIjoiMyJ9.tLI-wJOOsiMmZIMcRBfW2NxwxMkPImrRtZt4_sNH71Q",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:5000/service_tickets/my-tickets",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"service_tickets",
+						"my-tickets"
 					]
 				}
 			},
@@ -144,7 +177,7 @@
 				"method": "PUT",
 				"header": [],
 				"url": {
-					"raw": "http://127.0.0.1:5000/service_tickets/1/add-part/1",
+					"raw": "http://127.0.0.1:5000/service_tickets/1/add-part/3",
 					"protocol": "http",
 					"host": [
 						"127",
@@ -157,17 +190,9 @@
 						"service_tickets",
 						"1",
 						"add-part",
-						"1"
+						"3"
 					]
 				}
-			},
-			"response": []
-		},
-		{
-			"name": "Get Mechanic Tickets",
-			"request": {
-				"method": "GET",
-				"header": []
 			},
 			"response": []
 		}

@@ -15,6 +15,15 @@
 				},
 				"method": "POST",
 				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"New Brake Pads\",\r\n    \"price\": \"249.00\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
 				"url": {
 					"raw": "http://127.0.0.1:5000/parts",
 					"protocol": "http",
@@ -35,18 +44,10 @@
 		{
 			"name": "Get Inventories",
 			"request": {
-				"method": "GET",
-				"header": []
-			},
-			"response": []
-		},
-		{
-			"name": "Update Inventory",
-			"request": {
 				"auth": {
 					"type": "noauth"
 				},
-				"method": "PUT",
+				"method": "GET",
 				"header": [],
 				"url": {
 					"raw": "http://127.0.0.1:5000/parts",
@@ -66,15 +67,24 @@
 			"response": []
 		},
 		{
-			"name": "Delete Inventory",
+			"name": "Update Inventory",
 			"request": {
 				"auth": {
 					"type": "noauth"
 				},
-				"method": "DELETE",
+				"method": "PUT",
 				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"New Michelin Tire *updated\",\r\n    \"price\": \"149.00\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
 				"url": {
-					"raw": "http://127.0.0.1:5000/parts",
+					"raw": "http://127.0.0.1:5000/parts/1",
 					"protocol": "http",
 					"host": [
 						"127",
@@ -84,7 +94,34 @@
 					],
 					"port": "5000",
 					"path": [
-						"parts"
+						"parts",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Inventory",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:5000/parts/4",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"parts",
+						"4"
 					]
 				}
 			},

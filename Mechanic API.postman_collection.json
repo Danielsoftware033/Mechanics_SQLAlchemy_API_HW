@@ -15,8 +15,17 @@
 				},
 				"method": "POST",
 				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"address\": \"7 Fun St\",\r\n    \"email\": \"testier@email.com\",\r\n    \"first_name\": \"Jacobo\",\r\n    \"last_name\": \"Harris\",\r\n    \"password\": \"123456890\",\r\n    \"salary\": 195000.00\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
 				"url": {
-					"raw": "http://127.0.0.1:5500/mechanics",
+					"raw": "http://127.0.0.1:5000/mechanics",
 					"protocol": "http",
 					"host": [
 						"127",
@@ -24,7 +33,7 @@
 						"0",
 						"1"
 					],
-					"port": "5500",
+					"port": "5000",
 					"path": [
 						"mechanics"
 					]
@@ -41,32 +50,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://127.0.0.1:5500/mechanics",
-					"protocol": "http",
-					"host": [
-						"127",
-						"0",
-						"0",
-						"1"
-					],
-					"port": "5500",
-					"path": [
-						"mechanics"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Get Mechanic",
-			"request": {
-				"auth": {
-					"type": "noauth"
-				},
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://127.0.0.1:5000/mechanics/1",
+					"raw": "http://127.0.0.1:5000/mechanics",
 					"protocol": "http",
 					"host": [
 						"127",
@@ -76,20 +60,29 @@
 					],
 					"port": "5000",
 					"path": [
-						"mechanics",
-						"1"
+						"mechanics"
 					]
 				}
 			},
 			"response": []
 		},
 		{
-			"name": "Update Mechanic",
+			"name": "Get Mechanic",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
 			"request": {
 				"auth": {
-					"type": "noauth"
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3NTc1ODQ3NTcsImlhdCI6MTc1NzU4MTE1Nywic3ViIjoiMyJ9.tLI-wJOOsiMmZIMcRBfW2NxwxMkPImrRtZt4_sNH71Q",
+							"type": "string"
+						}
+					]
 				},
-				"method": "PUT",
+				"method": "GET",
 				"header": [],
 				"body": {
 					"mode": "raw",
@@ -101,7 +94,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://127.0.0.1:5000/mechanics/1",
+					"raw": "http://127.0.0.1:5000/mechanics/profile",
 					"protocol": "http",
 					"host": [
 						"127",
@@ -112,7 +105,48 @@
 					"port": "5000",
 					"path": [
 						"mechanics",
+						"profile"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Mechanic",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3NTc1ODQ3NTcsImlhdCI6MTc1NzU4MTE1Nywic3ViIjoiMyJ9.tLI-wJOOsiMmZIMcRBfW2NxwxMkPImrRtZt4_sNH71Q",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"address\": \"14 Fun St\",\r\n    \"email\": \"testier@email.com\",\r\n    \"first_name\": \"Jacobo\",\r\n    \"id\": 3,\r\n    \"last_name\": \"Harris\",\r\n    \"password\": \"scrypt:32768:8:1$acgPydoOkr3QMbiS$f3e5153b7db6e8c617924c2d42caf21e3d5a8ebd91f909e96f2df01047f0571740b678c59c86cba8df2e01851dd33572766d91499c240d9921a37e4fc2805929\",\r\n    \"salary\": 195000.0\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:5000/mechanics",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
 						"1"
+					],
+					"port": "5000",
+					"path": [
+						"mechanics"
 					]
 				}
 			},
@@ -122,12 +156,19 @@
 			"name": "Delete Mechanic",
 			"request": {
 				"auth": {
-					"type": "noauth"
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3NTczNjUzMjksImlhdCI6MTc1NzM2MTcyOSwic3ViIjoiMiJ9.EkBHiTMg1YV3QuJ4FZmi--oCUMvftkzJ5O9iXTAvzlU",
+							"type": "string"
+						}
+					]
 				},
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "http://127.0.0.1:5000/mechanics/1",
+					"raw": "http://127.0.0.1:5000/mechanics",
 					"protocol": "http",
 					"host": [
 						"127",
@@ -137,8 +178,7 @@
 					],
 					"port": "5000",
 					"path": [
-						"mechanics",
-						"1"
+						"mechanics"
 					]
 				}
 			},
@@ -149,8 +189,17 @@
 			"request": {
 				"method": "POST",
 				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"email\": \"testier@email.com\",\r\n  \"password\": \"123456890\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
 				"url": {
-					"raw": "http://127.0.0.1:5000/login",
+					"raw": "http://127.0.0.1:5000/mechanics/login",
 					"protocol": "http",
 					"host": [
 						"127",
@@ -160,6 +209,7 @@
 					],
 					"port": "5000",
 					"path": [
+						"mechanics",
 						"login"
 					]
 				}
