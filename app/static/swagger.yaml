@@ -712,7 +712,7 @@ definitions:
         example: "Wheel"
       price:
         type: number
-        type: float
+        format: float
         example: 139.00 
 
 
@@ -753,7 +753,7 @@ definitions:
         example: "Add new tire to back"
       price:
         type: number
-        type: float
+        format: float
         example: 239.00
       VIN:
         type: string
@@ -780,7 +780,7 @@ definitions:
         type: string
       price:
         type: number
-        type: float
+        format: float
       VIN:
         type: string
       service_date:
@@ -800,7 +800,7 @@ definitions:
           type: string
         price:
           type: number
-          type: float
+          format: float
         VIN:
           type: string
         service_date:
