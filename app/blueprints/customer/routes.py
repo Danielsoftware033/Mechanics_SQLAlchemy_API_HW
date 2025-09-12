@@ -45,12 +45,10 @@ def read_customers_paginated():
         return customers_schema.jsonify(customers), 200
 
 
-#Read Individual Customer - Using a Dynamic Endpoint
-@customers_bp.route('/profile', methods=['GET'])
+#Read Individual Customer 
+@customers_bp.route('/<int:customer_id>', methods=['GET'])
 @limiter.limit("25 per hour")
-@customer_token_required
-def read_customer():
-    customer_id = request.customer_id
+def read_customer(customer_id):
     customer = db.session.get(Customer, customer_id)
     return customer_schema.jsonify(customer), 200
 

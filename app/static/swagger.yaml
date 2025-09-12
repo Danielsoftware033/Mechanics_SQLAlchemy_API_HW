@@ -172,7 +172,7 @@ paths:
       tags:
         - Customer
       summary: "Returns all customers"
-      description: "Endpoint to recieve an array of customer objects."
+      description: "Endpoint to receive an array of customer objects."
       responses:
         200:
           description: "Successfully Retrieved Customers"
@@ -220,6 +220,33 @@ paths:
               email: "laurne@gmail.com"
               id: 0
               first_name: "Thomas"
+              last_name: "Smith"
+
+    get:
+      tags:
+        - Customer
+      summary: "Returns the profile of the customer"
+      description: "Endpoint retrieves the profile of the customer"
+      parameters:
+        - in: path
+          name: customer_id
+          required: true
+          schema:
+            type: integer
+            minimum: 1
+          description: The customer ID
+      responses:
+        200:
+          description: "Successfully retrieved customer profile"
+          schema:
+            $ref: "#/definitions/CustomerResponse"
+          examples:
+            application/json:
+              phone: "813-777-3993"
+              address: "2752 Conch st."
+              email: "lauren@gmail.com"
+              id: 0
+              first_name: "Thomas"    
               last_name: "Smith"
 
     delete: 
